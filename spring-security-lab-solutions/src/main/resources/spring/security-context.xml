@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
+
+    <description>
+        Spring configuration file for Spring Security related features.
+    </description>
+
+    <sec:global-method-security secured-annotations="enabled"
+                                jsr250-annotations="enabled"
+                                pre-post-annotations="enabled">
+
+    </sec:global-method-security>
+
+    <sec:http pattern="/**">
+        <sec:intercept-url pattern="/secured-admin.jsp" access="hasRole('ROLE_ADMIN')" />
+        <sec:intercept-url pattern="/secured-user.jsp" access="hasRole('ROLE_USER')" />
+
+        <sec:anonymous enabled="true" username="anonymousUser" />
+
+        <sec:form-login />
+        <sec:logout logout-success-url="/"/>
+    </sec:http>
+
+    <sec:authentication-manager>
+        <sec:authentication-provider>
+            <sec:user-service>
+                <sec:user name="anthony_user" authorities="ROLE_USER" password="{noop}user123" />
+                <sec:user name="anthony_admin" authorities="ROLE_USER, ROLE_ADMIN" password="{noop}admin123" />
+            </sec:user-service>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+</beans>

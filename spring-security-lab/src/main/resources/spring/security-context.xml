@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
+
+    <description>
+        Spring configuration file for Spring Security related features.
+    </description>
+
+    <bean id="forbiddenEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
+
+    <sec:http pattern="/**" entry-point-ref="forbiddenEntryPoint">
+        <sec:anonymous enabled="true" username="anonymousUser" />
+    </sec:http>
+
+    <sec:authentication-manager>
+
+    </sec:authentication-manager>
+
+</beans>
